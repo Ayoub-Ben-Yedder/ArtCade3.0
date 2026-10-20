@@ -3,7 +3,6 @@ extends CharacterBody3D
 const SPEED = 5.0
 const JUMP_VELOCITY = 4.5
 var gravity = ProjectSettings.get_setting("physics/3d/default_gravity")
-
 var start_position: Vector3
 
 func _ready():
@@ -15,6 +14,7 @@ func _physics_process(delta):
 		global_position = start_position
 		velocity = Vector3.ZERO
 		return
+
 	if not is_on_floor():
 		velocity.y -= gravity * delta
 	elif Input.is_action_just_pressed("ui_accept"):

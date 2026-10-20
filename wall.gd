@@ -15,19 +15,12 @@ func _ready():
 	var half := wall_width / 2.0
 	var hole_left := hole_x - hole_width / 2.0
 	var hole_right := hole_x + hole_width / 2.0
-
-	# left piece
 	var lw := hole_left + half
-	_add_box(Vector3((-half + hole_left) / 2.0, wall_height / 2.0, 0),
-			 Vector3(lw, wall_height, thickness))
-	# right piece
+	_add_box(Vector3((-half + hole_left) / 2.0, wall_height / 2.0, 0), Vector3(lw, wall_height, thickness))
 	var rw := half - hole_right
-	_add_box(Vector3((half + hole_right) / 2.0, wall_height / 2.0, 0),
-			 Vector3(rw, wall_height, thickness))
-	# top piece
+	_add_box(Vector3((half + hole_right) / 2.0, wall_height / 2.0, 0), Vector3(rw, wall_height, thickness))
 	var th := wall_height - hole_height
-	_add_box(Vector3(0, hole_height + th / 2.0, 0),
-			 Vector3(wall_width, th, thickness))
+	_add_box(Vector3(0, hole_height + th / 2.0, 0), Vector3(wall_width, th, thickness))
 
 func _add_box(center: Vector3, size: Vector3):
 	var mesh := MeshInstance3D.new()
@@ -36,7 +29,6 @@ func _add_box(center: Vector3, size: Vector3):
 	mesh.mesh = box
 	mesh.position = center
 	add_child(mesh)
-
 	var col := CollisionShape3D.new()
 	var shape := BoxShape3D.new()
 	shape.size = size
