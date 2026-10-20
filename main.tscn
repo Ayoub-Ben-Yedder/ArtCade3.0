@@ -10,29 +10,31 @@
 [node name="Main" type="Node3D" unique_id=1151361475]
 
 [node name="Camera3D" type="Camera3D" parent="." unique_id=797774730]
-transform = Transform3D(1, 0, 0, 0, 0.9518514, 0.30655974, 0, -0.30655974, 0.9518514, 0, 0.27159107, 1.2123265)
+transform = Transform3D(1, 0, 0, 0, 0.9518514, 0.30655974, 0, -0.30655974, 0.9518514, 0.0005825758, 1.8161421, 3.026359)
 
 [node name="Player" type="CharacterBody3D" parent="." unique_id=238330554]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.52137935, 0)
 script = ExtResource("1_0xm2m")
 
 [node name="Model" parent="Player" unique_id=696421576 instance=ExtResource("2_h2yge")]
-transform = Transform3D(0.755, 0, 0, 0, 0.755, 0, 0, 0, 0.755, 0, 0, 0)
+transform = Transform3D(0.755, 0, 0, 0, 0.755, 0, 0, 0, 0.755, 0, 1.4065028, 0)
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="Player" unique_id=575592170]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.8989992, 0)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.096442, 0)
+visible = false
 shape = SubResource("CapsuleShape3D_l2hha")
 
 [node name="PoseReceiver" type="Node" parent="Player" unique_id=1805387204]
 script = ExtResource("3_1bvp3")
 
-[node name="CSGBox3D" type="CSGBox3D" parent="." unique_id=1002598183]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.9883932, 0)
+[node name="platform" type="CSGBox3D" parent="." unique_id=1002598183]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.52704954, -3.9128602)
 use_collision = true
-size = Vector3(4.535, 0.205, 6.39)
+size = Vector3(4.535, 0.205, 9)
 
 [node name="DirectionalLight3D" type="DirectionalLight3D" parent="." unique_id=1405341641]
 transform = Transform3D(0.99711525, 0.024022551, 0.072000526, -0.06984262, 0.66178995, 0.7464287, -0.029718086, -0.74930435, 0.6615587, 0, 1.2614056, 2.452115)
 
 [node name="Wall" type="AnimatableBody3D" parent="." unique_id=1958228426]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -1.1592155)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.6608455, -1.5815101)
 script = ExtResource("3_h2yge")

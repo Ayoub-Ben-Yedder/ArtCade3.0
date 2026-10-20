@@ -14,7 +14,7 @@ NAMES = {
 sock = socket.socket(socket.AF_INET, socket.SOCK_DGRAM)
 mp_pose = mp.solutions.pose
 pose = mp_pose.Pose(model_complexity=1, smooth_landmarks=True)
-cap = cv2.VideoCapture(0)
+cap = cv2.VideoCapture(2)
 
 while True:
     ok, frame = cap.read()
