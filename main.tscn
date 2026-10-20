@@ -2,6 +2,7 @@
 
 [ext_resource type="Script" uid="uid://bgsla80g7hwsp" path="res://player.gd" id="1_0xm2m"]
 [ext_resource type="PackedScene" uid="uid://d381i2k7yhoov" path="res://character.fbx" id="2_h2yge"]
+[ext_resource type="Script" uid="uid://br046otr8rb7" path="res://pose_receiver.gd" id="3_1bvp3"]
 [ext_resource type="Script" uid="uid://bqc6fkp4yu6xf" path="res://wall.gd" id="3_h2yge"]
 
 [sub_resource type="CapsuleShape3D" id="CapsuleShape3D_l2hha"]
@@ -19,6 +20,9 @@ script = ExtResource("1_0xm2m")
 [node name="CollisionShape3D" type="CollisionShape3D" parent="Player" unique_id=575592170]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.8989992, 0)
 shape = SubResource("CapsuleShape3D_l2hha")
+
+[node name="PoseReceiver" type="Node" parent="Player" unique_id=1805387204]
+script = ExtResource("3_1bvp3")
 
 [node name="CSGBox3D" type="CSGBox3D" parent="." unique_id=1002598183]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.9883932, 0)
