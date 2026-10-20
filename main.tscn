@@ -16,6 +16,7 @@ transform = Transform3D(1, 0, 0, 0, 0.9518514, 0.30655974, 0, -0.30655974, 0.951
 script = ExtResource("1_0xm2m")
 
 [node name="Model" parent="Player" unique_id=696421576 instance=ExtResource("2_h2yge")]
+transform = Transform3D(0.755, 0, 0, 0, 0.755, 0, 0, 0, 0.755, 0, 0, 0)
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="Player" unique_id=575592170]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.8989992, 0)

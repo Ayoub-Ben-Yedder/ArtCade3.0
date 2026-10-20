@@ -5,15 +5,17 @@ var pose := {}
 var skel: Skeleton3D
 var smooth_dirs := {}
 @export var body_scale := 1.0
-@export var padding := Vector2(0.25, 0.2)
-@export var depth := 0.5
+@export var arm_radius := 0.07
+@export var leg_radius := 0.09
+@export var head_radius := 0.13
+@export var torso_depth := 0.25
+@export var torso_pad := 0.05
+@export var foot_pad := 0.05
 @export var show_debug := true
 
-var col: CollisionShape3D
-var box := BoxShape3D.new()
-var dbg_box := BoxMesh.new()
-var cur_size := Vector2(0.65, 1.8)
-var cur_x := 0.0
+var parts := []
+var ground_offset := 0.9
+var dbg_mat: StandardMaterial3D
 
 # [bone, child bone, from landmark, to landmark]
 const LIMBS = [
@@ -27,22 +29,66 @@ const LIMBS = [
 	["RightLeg", "RightFoot", "r_knee", "r_ankle"],
 ]
 
+# [from landmark, to landmark, "arm" or "leg"]
+const CAPSULES = [
+	["l_shoulder", "l_elbow", "arm"],
+	["l_elbow", "l_wrist", "arm"],
+	["r_shoulder", "r_elbow", "arm"],
+	["r_elbow", "r_wrist", "arm"],
+	["l_hip", "l_knee", "leg"],
+	["l_knee", "l_ankle", "leg"],
+	["r_hip", "r_knee", "leg"],
+	["r_knee", "r_ankle", "leg"],
+]
+
+const LM_TO_BONE = {
+	"l_shoulder": "LeftArm", "l_elbow": "LeftForeArm", "l_wrist": "LeftHand",
+	"r_shoulder": "RightArm", "r_elbow": "RightForeArm", "r_wrist": "RightHand",
+	"l_hip": "LeftUpLeg", "l_knee": "LeftLeg", "l_ankle": "LeftFoot",
+	"r_hip": "RightUpLeg", "r_knee": "RightLeg", "r_ankle": "RightFoot",
+	"nose": "Head",
+}
+
 func _ready():
 	udp.bind(4242, "127.0.0.1")
 	skel = get_node("../Model").find_child("Skeleton3D", true, false)
 	if skel == null:
 		push_error("No Skeleton3D found under Model")
 
-	col = get_parent().get_node("CollisionShape3D")
-	col.shape = box
+	# old single box is no longer used
+	get_parent().get_node("CollisionShape3D").disabled = true
+
+	dbg_mat = StandardMaterial3D.new()
+	dbg_mat.albedo_color = Color(1, 0.2, 0.2, 0.3)
+	dbg_mat.transparency = BaseMaterial3D.TRANSPARENCY_ALPHA
+
+	for c in CAPSULES:
+		parts.append(_make_part("capsule", c[0], c[1], arm_radius if c[2] == "arm" else leg_radius))
+	parts.append(_make_part("box", "", "", 0.0))
+	parts.append(_make_part("sphere", "nose", "", head_radius))
+
+func _make_part(kind: String, a: String, b: String, radius: float) -> Dictionary:
+	var node := CollisionShape3D.new()
+	var shape: Shape3D
+	var mesh: Mesh
+	match kind:
+		"capsule":
+			shape = CapsuleShape3D.new()
+			mesh = CapsuleMesh.new()
+		"box":
+			shape = BoxShape3D.new()
+			mesh = BoxMesh.new()
+		_:
+			shape = SphereShape3D.new()
+			mesh = SphereMesh.new()
+	node.shape = shape
 	if show_debug:
-		var dbg := MeshInstance3D.new()
-		dbg.mesh = dbg_box
-		var mat := StandardMaterial3D.new()
-		mat.albedo_color = Color(1, 0.2, 0.2, 0.3)
-		mat.transparency = BaseMaterial3D.TRANSPARENCY_ALPHA
-		dbg.material_override = mat
-		col.add_child(dbg)
+		var mi := MeshInstance3D.new()
+		mi.mesh = mesh
+		mi.material_override = dbg_mat
+		node.add_child(mi)
+	get_parent().add_child.call_deferred(node)
+	return {"kind": kind, "a": a, "b": b, "radius": radius, "node": node, "shape": shape, "mesh": mesh}
 
 func _bone(short_name: String) -> int:
 	for prefix in ["mixamorig_", "mixamorig:", "mixamorig"]:
@@ -55,6 +101,12 @@ func _lm(lm_name: String) -> Vector3:
 	var a = pose[lm_name]
 	return Vector3(a[0], a[1], a[2])
 
+# landmark in Player-local space (scaled, feet on the floor)
+func _p(lm_name: String) -> Vector3:
+	var i := _bone(LM_TO_BONE[lm_name])
+	var g: Transform3D = skel.global_transform * skel.get_bone_global_pose(i)
+	return get_parent().global_transform.affine_inverse() * g.origin
+
 func _process(_delta):
 	while udp.get_available_packet_count() > 0:
 		var data = JSON.parse_string(udp.get_packet().get_string_from_utf8())
@@ -62,9 +114,9 @@ func _process(_delta):
 			pose = data
 	if skel == null or pose.is_empty():
 		return
-	_update_hitbox()
 	for limb in LIMBS:
 		_aim(limb[0], limb[1], limb[2], limb[3])
+	_update_hitbox()
 
 func _aim(bone_name: String, child_name: String, from_lm: String, to_lm: String):
 	var b := _bone(bone_name)
@@ -88,20 +140,54 @@ func _aim(bone_name: String, child_name: String, from_lm: String, to_lm: String)
 	skel.set_bone_pose_rotation(b, local.get_rotation_quaternion())
 
 func _update_hitbox():
-	var min_x := INF
-	var max_x := -INF
-	var min_y := INF
-	var max_y := -INF
-	for k in pose:
-		var p = pose[k]
-		min_x = minf(min_x, p[0])
-		max_x = maxf(max_x, p[0])
-		min_y = minf(min_y, p[1])
-		max_y = maxf(max_y, p[1])
-	var w := (max_x - min_x + padding.x) * body_scale
-	var h := (max_y - min_y + padding.y) * body_scale
-	cur_size = cur_size.lerp(Vector2(w, h), 0.2)
-	cur_x = lerpf(cur_x, (min_x + max_x) / 2.0 * body_scale, 0.2)
-	box.size = Vector3(cur_size.x, cur_size.y, depth)
-	dbg_box.size = box.size
-	col.position = Vector3(cur_x, cur_size.y / 2.0, 0)
+	for p in parts:
+		match p["kind"]:
+			"capsule":
+				_set_capsule(p, _p(p["a"]), _p(p["b"]))
+			"box":
+				_set_torso(p)
+			_:
+				_set_head(p)
+
+func _set_capsule(p: Dictionary, a: Vector3, b: Vector3):
+	var length := a.distance_to(b)
+	if length < 0.001:
+		return
+	var r: float = p["radius"] * body_scale
+	var h := length + 2.0 * r
+	p["shape"].radius = r
+	p["shape"].height = h
+	if show_debug:
+		p["mesh"].radius = r
+		p["mesh"].height = h
+	var bs := Basis(Quaternion(Vector3.UP, (b - a) / length))
+	p["node"].transform = Transform3D(bs, (a + b) / 2.0)
+
+func _set_torso(p: Dictionary):
+	var ls := _p("l_shoulder")
+	var rs := _p("r_shoulder")
+	var top := (ls + rs) / 2.0
+	var bot := (_p("l_hip") + _p("r_hip")) / 2.0
+	var up := top - bot
+	if up.length() < 0.001:
+		return
+	var y := up.normalized()
+	var x := rs - ls
+	x = (x - y * x.dot(y)).normalized()
+	var z := x.cross(y)
+	var size := Vector3(
+		(ls.distance_to(rs) + 2.0 * torso_pad * body_scale),
+		up.length() + 2.0 * torso_pad * body_scale,
+		torso_depth * body_scale)
+	p["shape"].size = size
+	if show_debug:
+		p["mesh"].size = size
+	p["node"].transform = Transform3D(Basis(x, y, z), (top + bot) / 2.0)
+
+func _set_head(p: Dictionary):
+	var r: float = p["radius"] * body_scale
+	p["shape"].radius = r
+	if show_debug:
+		p["mesh"].radius = r
+		p["mesh"].height = r * 2.0
+	p["node"].transform = Transform3D(Basis.IDENTITY, _p("nose") + Vector3(0, 0.1, 0))
