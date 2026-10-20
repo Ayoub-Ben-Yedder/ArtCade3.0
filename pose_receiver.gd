@@ -11,6 +11,10 @@ const LIMBS = [
 	["LeftForeArm", "LeftHand", "l_elbow", "l_wrist"],
 	["RightArm", "RightForeArm", "r_shoulder", "r_elbow"],
 	["RightForeArm", "RightHand", "r_elbow", "r_wrist"],
+	["LeftUpLeg", "LeftLeg", "l_hip", "l_knee"],
+	["LeftLeg", "LeftFoot", "l_knee", "l_ankle"],
+	["RightUpLeg", "RightLeg", "r_hip", "r_knee"],
+	["RightLeg", "RightFoot", "r_knee", "r_ankle"],
 ]
 
 func _ready():
