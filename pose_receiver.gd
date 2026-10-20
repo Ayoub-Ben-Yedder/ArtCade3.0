@@ -14,4 +14,4 @@ func _process(_delta):
 		var data = JSON.parse_string(text)
 		if data is Dictionary:
 			pose = data
-			print(pose)
+			print(pose.get("l_wrist"))
