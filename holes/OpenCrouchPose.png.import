@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://bnekxfiqmr4hr"
-path="res://.godot/imported/medium_3_window.png-db9e5fb8b82aeea747aa06377ce305f8.ctex"
+uid="uid://1lrqdkid3ab8"
+path="res://.godot/imported/OpenCrouchPose.png-8ca0a19fe5d0eb6a9828c3ddab7847ca.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://holes/medium_3_window.png"
-dest_files=["res://.godot/imported/medium_3_window.png-db9e5fb8b82aeea747aa06377ce305f8.ctex"]
+source_file="res://holes/OpenCrouchPose.png"
+dest_files=["res://.godot/imported/OpenCrouchPose.png-8ca0a19fe5d0eb6a9828c3ddab7847ca.ctex"]
 
 [params]
 

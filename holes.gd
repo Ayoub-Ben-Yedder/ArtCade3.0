@@ -1,13 +1,16 @@
 class_name Holes
 
 const LEVELS = [
-	{"name": "Door", "file": "res://holes/easy_1_door.png"},
-	{"name": "Oval", "file": "res://holes/easy_2_oval.png"},
-	{"name": "Dome", "file": "res://holes/easy_3_dome.png"},
-	{"name": "Tunnel", "file": "res://holes/medium_1_tunnel.png"},
-	{"name": "Cross", "file": "res://holes/medium_2_cross.png"},
-	{"name": "Window", "file": "res://holes/medium_3_window.png"},
-	{"name": "Slot", "file": "res://holes/hard_1_slot.png"},
-	{"name": "Diagonal", "file": "res://holes/hard_2_diagonal.png"},
-	{"name": "Y pose", "file": "res://holes/hard_3_y.png"},
+	{"name": "OpenCrouch", "file": "res://holes/OpenCrouchPose.png"}, #Hard
+]
+const HARD_LEVELS = [
+	{"name": "OneLeg", "file": "res://holes/OneLegPose.png"},  #Hard
+]
+const MEDUIM_LEVEL = [
+	{"name": "ArmsUp", "file": "res://holes/ArmsUpPose.png"}, #Meduim
+	{"name": "Star", "file": "res://holes/StarPose.png"},     #Meduim
+	{"name": "Crouch", "file": "res://holes/CrouchPose.png"}, #Meduim
+]
+const EASY_LEVEL =[
+	{"name": "TPose", "file": "res://holes/Tpose.png"},       #Easy
 ]

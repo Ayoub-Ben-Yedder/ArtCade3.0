@@ -13,11 +13,11 @@
 transform = Transform3D(1, 0, 0, 0, 0.9518514, 0.30655974, 0, -0.30655974, 0.9518514, 0.0005825758, 1.8161421, 3.026359)
 
 [node name="Player" type="CharacterBody3D" parent="." unique_id=238330554]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.52137935, 0)
+transform = Transform3D(-1, 0, -8.742278e-08, 0, 1, 0, 8.742278e-08, 0, -1, 0, 0.52137935, 0)
 script = ExtResource("1_0xm2m")
 
 [node name="Model" parent="Player" unique_id=696421576 instance=ExtResource("2_h2yge")]
-transform = Transform3D(0.755, 0, 0, 0, 0.755, 0, 0, 0, 0.755, 0, 1.4065028, 0)
+transform = Transform3D(0.755, 0, 0, 0, 0.755, 0, 0, 0, 0.755, -7.682863e-08, 1.4065028, 0.8788171)
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="Player" unique_id=575592170]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.096442, 0)
@@ -33,8 +33,14 @@ use_collision = true
 size = Vector3(4.535, 0.205, 9)
 
 [node name="DirectionalLight3D" type="DirectionalLight3D" parent="." unique_id=1405341641]
-transform = Transform3D(0.99711525, 0.024022551, 0.072000526, -0.06984262, 0.66178995, 0.7464287, -0.029718086, -0.74930435, 0.6615587, 0, 1.2614056, 2.452115)
+transform = Transform3D(0.99711525, 0.024022562, 0.07200051, -0.057730578, 0.85588485, 0.51393384, -0.04927812, -0.51660806, 0.8548029, 0, 1.2614056, 2.452115)
 
 [node name="Wall" type="AnimatableBody3D" parent="." unique_id=1958228426]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.6608455, -1.5815101)
 script = ExtResource("3_h2yge")
+
+[node name="SpotLight3D" type="SpotLight3D" parent="." unique_id=1013030115]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.133708, 2.3477316)
+spot_range = 5.6
+spot_attenuation = -1.6
+spot_angle = 22.31

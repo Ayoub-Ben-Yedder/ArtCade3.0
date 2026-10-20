@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://b1goqneykr2p3"
-path="res://.godot/imported/medium_1_tunnel.png-998060046e78a737f6ce2cb3756d0e20.ctex"
+uid="uid://12ie3d3kk4qx"
+path="res://.godot/imported/ArmsUpPose.png-5bef36952e8e3a30488d0abe36ac0371.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://holes/medium_1_tunnel.png"
-dest_files=["res://.godot/imported/medium_1_tunnel.png-998060046e78a737f6ce2cb3756d0e20.ctex"]
+source_file="res://holes/ArmsUpPose.png"
+dest_files=["res://.godot/imported/ArmsUpPose.png-5bef36952e8e3a30488d0abe36ac0371.ctex"]
 
 [params]
 

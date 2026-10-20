@@ -12,18 +12,20 @@ extends AnimatableBody3D
 @export var end_z := 11.0
 @export var start_level := 0
 @export var wall_color := Color(0.85, 0.45, 0.2)
+@export var isActive := true
 
 var level_index := 0
 var built: Array[Node] = []
 
 func _ready():
-	position = Vector3(0, 0, start_z)
-	level_index = start_level
-	_build(Holes.LEVELS[level_index])
+	if isActive :
+		position = Vector3(0, 0, start_z)
+		level_index = start_level
+		_build(Holes.LEVELS[level_index])
 
 func _physics_process(delta):
 	position.z += speed * delta
-	if position.z > end_z:
+	if (position.z > end_z) and (isActive):
 		position.z = start_z
 		level_index = (level_index + 1) % Holes.LEVELS.size()
 		_build(Holes.LEVELS[level_index])
