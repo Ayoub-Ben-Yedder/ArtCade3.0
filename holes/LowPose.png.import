@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://dixbadr0m7p5x"
-path="res://.godot/imported/OneLegPose.png-f53fb64c29107ae078f291efab4c1e88.ctex"
+uid="uid://f0xnxxlancw5"
+path="res://.godot/imported/LowPose.png-d7e60b9d520b3e45bc5840dbba213388.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://holes/OneLegPose.png"
-dest_files=["res://.godot/imported/OneLegPose.png-f53fb64c29107ae078f291efab4c1e88.ctex"]
+source_file="res://holes/LowPose.png"
+dest_files=["res://.godot/imported/LowPose.png-d7e60b9d520b3e45bc5840dbba213388.ctex"]
 
 [params]
 
