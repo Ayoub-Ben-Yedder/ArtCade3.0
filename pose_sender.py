@@ -2,6 +2,7 @@ import cv2, mediapipe as mp, socket, json
 
 NAMES = {
     0: "nose",
+    7: "l_ear",       8: "r_ear",
     11: "l_shoulder", 12: "r_shoulder",
     13: "l_elbow",    14: "r_elbow",
     15: "l_wrist",    16: "r_wrist",

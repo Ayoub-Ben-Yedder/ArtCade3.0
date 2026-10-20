@@ -4,6 +4,8 @@ var udp := PacketPeerUDP.new()
 var pose := {}
 var skel: Skeleton3D
 var smooth_dirs := {}
+var smooth_rots := {}
+@export var head_trim := 0.25
 @export var body_scale := 1.0
 @export var arm_radius := 0.07
 @export var leg_radius := 0.09
@@ -114,6 +116,7 @@ func _process(_delta):
 			pose = data
 	if skel == null or pose.is_empty():
 		return
+	_update_body()
 	for limb in LIMBS:
 		_aim(limb[0], limb[1], limb[2], limb[3])
 	_update_hitbox()
@@ -191,3 +194,66 @@ func _set_head(p: Dictionary):
 		p["mesh"].radius = r
 		p["mesh"].height = r * 2.0
 	p["node"].transform = Transform3D(Basis.IDENTITY, _p("nose") + Vector3(0, 0.1, 0))
+
+func _to_skel(v: Vector3) -> Vector3:
+	var w: Vector3 = get_parent().global_basis * v
+	return skel.global_basis.orthonormalized().inverse() * w
+
+func _rest_pos(short_name: String) -> Vector3:
+	return skel.get_bone_global_rest(_bone(short_name)).origin
+
+func _frame(side: Vector3, up: Vector3) -> Basis:
+	var s := side.normalized()
+	var u := (up - s * up.dot(s)).normalized()
+	return Basis(s, u, s.cross(u))
+
+func _rot_between(rest: Basis, target: Basis) -> Quaternion:
+	return (target * rest.inverse()).get_rotation_quaternion()
+
+func _smooth(key: String, q: Quaternion) -> Quaternion:
+	var prev: Quaternion = smooth_rots.get(key, q)
+	var out := prev.slerp(q, 0.3)
+	smooth_rots[key] = out
+	return out
+
+func _apply(bone_name: String, q: Quaternion):
+	var b := _bone(bone_name)
+	if b == -1:
+		push_error("Bone not found: " + bone_name)
+		return
+	var rest_b := skel.get_bone_global_rest(b)
+	var new_basis := Basis(q) * rest_b.basis.orthonormalized()
+	var parent_basis := Basis.IDENTITY
+	var parent := skel.get_bone_parent(b)
+	if parent != -1:
+		parent_basis = skel.get_bone_global_pose(parent).basis.orthonormalized()
+	var local := parent_basis.inverse() * new_basis
+	skel.set_bone_pose_rotation(b, local.get_rotation_quaternion())
+
+func _update_body():
+	var ls := _lm("l_shoulder")
+	var rs := _lm("r_shoulder")
+	var lh := _lm("l_hip")
+	var rh := _lm("r_hip")
+	var up_t := _to_skel((ls + rs) / 2.0 - (lh + rh) / 2.0)
+	var up_r := _rest_pos("Neck") - _rest_pos("Hips")
+
+	var pel_r := _frame(_rest_pos("LeftUpLeg") - _rest_pos("RightUpLeg"), up_r)
+	var che_r := _frame(_rest_pos("LeftArm") - _rest_pos("RightArm"), up_r)
+	var q_pel := _smooth("pel", _rot_between(pel_r, _frame(_to_skel(lh - rh), up_t)))
+	var q_che := _smooth("che", _rot_between(che_r, _frame(_to_skel(ls - rs), up_t)))
+	_apply("Hips", q_pel)
+	_apply("Spine", q_pel.slerp(q_che, 0.33))
+	_apply("Spine1", q_pel.slerp(q_che, 0.66))
+	_apply("Spine2", q_che)
+
+	if not pose.has("l_ear"):
+		return
+	var side_h := _to_skel(_lm("l_ear") - _lm("r_ear"))
+	var fwd_h := _to_skel(_lm("nose") - (_lm("l_ear") + _lm("r_ear")) / 2.0)
+	fwd_h += up_t.normalized() * fwd_h.length() * head_trim
+	var s := side_h.normalized()
+	var f := fwd_h - s * fwd_h.dot(s)
+	var q_head := _smooth("head", _rot_between(che_r, _frame(side_h, f.cross(s))))
+	_apply("Neck", q_che.slerp(q_head, 0.5))
+	_apply("Head", q_head)
