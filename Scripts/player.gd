@@ -4,16 +4,17 @@ const SPEED = 5.0
 const JUMP_VELOCITY = 4.5
 var gravity = ProjectSettings.get_setting("physics/3d/default_gravity")
 var start_position: Vector3
+@export var fall_limit := -5.0
+var game_over := false
 
 func _ready():
 	platform_wall_layers = 1
 	start_position = global_position
 
 func _physics_process(delta):
-	if global_position.y < -10.0:
-		global_position = start_position
-		velocity = Vector3.ZERO
-		return
+	if global_position.y < fall_limit and not game_over:
+		game_over = true
+		get_tree().change_scene_to_file("res://LostScreen.tscn")
 
 	if not is_on_floor():
 		velocity.y -= gravity * delta

@@ -1,0 +1,64 @@
+[gd_scene format=3 uid="uid://d1pruuq4xhpho"]
+
+[ext_resource type="Script" uid="uid://bypajrwvfqe2g" path="res://end_screen.gd" id="1_cx6km"]
+[ext_resource type="PackedScene" uid="uid://dsrp1kp8wytf5" path="res://Assets/Cirus.tscn" id="2_6l1fx"]
+[ext_resource type="LabelSettings" uid="uid://cscphhsj1l56e" path="res://UI/Font.tres" id="3_ddy7k"]
+
+[sub_resource type="ViewportTexture" id="ViewportTexture_gr4v2"]
+
+[sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_mqr7l"]
+
+[sub_resource type="Sky" id="Sky_qevgu"]
+sky_material = SubResource("ProceduralSkyMaterial_mqr7l")
+process_mode = 1
+
+[sub_resource type="Environment" id="Environment_78hlr"]
+background_mode = 2
+sky = SubResource("Sky_qevgu")
+sky_custom_fov = 45.6
+sky_rotation = Vector3(0.29670596, 0, 0)
+ambient_light_color = Color(0.5833908, 0.71908087, 0.99715585, 1)
+ambient_light_sky_contribution = 0.35
+ambient_light_energy = 0.2
+
+[node name="EndScreen" type="Control" unique_id=80086562]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_cx6km")
+
+[node name="Sketchfab_Scene" parent="." unique_id=1227487635 instance=ExtResource("2_6l1fx")]
+transform = Transform3D(0.23986669, 0, 0.9708058, 0, 1, 0, -0.9708058, 0, 0.23986669, 0, -6.477, -36.898)
+
+[node name="VBoxContainer" type="VBoxContainer" parent="." unique_id=595453551]
+layout_mode = 0
+offset_right = 1920.0
+offset_bottom = 1080.0
+alignment = 1
+
+[node name="Label" type="Label" parent="VBoxContainer" unique_id=303957306]
+layout_mode = 2
+text = "You Win"
+label_settings = ExtResource("3_ddy7k")
+horizontal_alignment = 1
+
+[node name="Button_Restart" type="Button" parent="VBoxContainer" unique_id=1827977817]
+layout_mode = 2
+text = "restart"
+icon = SubResource("ViewportTexture_gr4v2")
+
+[node name="Camera3D" type="Camera3D" parent="." unique_id=1514421395]
+transform = Transform3D(0.99995476, 0.00052554265, -0.009499671, 0, 0.9984733, 0.055237733, 0.009514194, -0.055235233, 0.9984281, 0, 0, 0)
+
+[node name="DirectionalLight3D" type="DirectionalLight3D" parent="." unique_id=1281454973]
+transform = Transform3D(1, 0, 0, 0, 0.7403152, 0.6722599, 0, -0.6722599, 0.7403152, 0, 3.6995604, 0)
+light_energy = 2.1
+light_indirect_energy = 2.097
+light_volumetric_fog_energy = 2.593
+light_specular = 0.0
+
+[node name="WorldEnvironment" type="WorldEnvironment" parent="." unique_id=1935319289]
+environment = SubResource("Environment_78hlr")

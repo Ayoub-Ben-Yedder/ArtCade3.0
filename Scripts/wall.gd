@@ -28,7 +28,7 @@ var started := false
 
 var level_index := 0
 var built: Array[Node] = []
-
+var finished := false
 func _ready():
 	_pick_levels()
 	if isActive :
@@ -43,9 +43,13 @@ func _physics_process(delta):
 	if not started :
 		return
 	position.z += speed * delta
-	if (position.z > end_z) and (isActive):
+	if (position.z > end_z) and isActive and not finished:
+		if level_index + 1 >= levels.size():
+			finished = true
+			get_tree().change_scene_to_file("res://WinScreen.tscn")
+			return
 		position.z = start_z
-		level_index = (level_index + 1) % levels.size()
+		level_index += 1
 		_build(levels[level_index])
 	if player and isActive:
 		var passed := global_position.z > player.global_position.z
