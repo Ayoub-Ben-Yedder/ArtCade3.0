@@ -1,0 +1,184 @@
+[gd_scene format=3 uid="uid://dmksqxyuikh8l"]
+
+[ext_resource type="Script" uid="uid://dm4odte1ne32p" path="res://Scripts/start_screen.gd" id="1_mqr7l"]
+[ext_resource type="PackedScene" uid="uid://dsrp1kp8wytf5" path="res://Assets/Cirus.tscn" id="2_mqr7l"]
+[ext_resource type="LabelSettings" uid="uid://cscphhsj1l56e" path="res://UI/Font.tres" id="3_t2adt"]
+[ext_resource type="Texture2D" uid="uid://b1goqneykr2p3" path="res://holes/TPose.png" id="4_xupoq"]
+[ext_resource type="Texture2D" uid="uid://8tylgawb07be" path="res://holes/OneArmPose.png" id="5_ykci1"]
+[ext_resource type="Texture2D" uid="uid://dft7utgi0j3h6" path="res://holes/CrouchPose.png" id="6_343mv"]
+[ext_resource type="Texture2D" uid="uid://12ie3d3kk4qx" path="res://holes/ArmsUpPose.png" id="7_kwitn"]
+[ext_resource type="Shader" uid="uid://dt5r0hbwllfc4" path="res://Shader/StartScreen.gdshader" id="7_ykci1"]
+[ext_resource type="Texture2D" uid="uid://bnekxfiqmr4hr" path="res://holes/StarPose.png" id="8_cx07w"]
+[ext_resource type="Texture2D" uid="uid://1metbdwxhmun" path="res://holes/CurvePose.png" id="9_34ebw"]
+[ext_resource type="Texture2D" uid="uid://q0y62yuw84aw" path="res://holes/OneLegPose.png" id="10_4dcrr"]
+
+[sub_resource type="ViewportTexture" id="ViewportTexture_gr4v2"]
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_ykci1"]
+shader = ExtResource("7_ykci1")
+shader_parameter/threshold = 0.9
+shader_parameter/softness = 0.1
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_343mv"]
+shader = ExtResource("7_ykci1")
+shader_parameter/threshold = 0.9
+shader_parameter/softness = 0.1
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_kwitn"]
+shader = ExtResource("7_ykci1")
+shader_parameter/threshold = 0.9
+shader_parameter/softness = 0.1
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_6e3xe"]
+shader = ExtResource("7_ykci1")
+shader_parameter/threshold = 0.9
+shader_parameter/softness = 0.1
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_cx07w"]
+shader = ExtResource("7_ykci1")
+shader_parameter/threshold = 0.9
+shader_parameter/softness = 0.1
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_34ebw"]
+shader = ExtResource("7_ykci1")
+shader_parameter/threshold = 0.9
+shader_parameter/softness = 0.1
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_4dcrr"]
+shader = ExtResource("7_ykci1")
+shader_parameter/threshold = 0.9
+shader_parameter/softness = 0.1
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_j3bvg"]
+shader = ExtResource("7_ykci1")
+shader_parameter/threshold = 0.9
+shader_parameter/softness = 0.1
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_eyvri"]
+shader = ExtResource("7_ykci1")
+shader_parameter/threshold = 0.9
+shader_parameter/softness = 0.1
+
+[sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_mqr7l"]
+
+[sub_resource type="Sky" id="Sky_qevgu"]
+sky_material = SubResource("ProceduralSkyMaterial_mqr7l")
+process_mode = 1
+
+[sub_resource type="Environment" id="Environment_78hlr"]
+background_mode = 2
+sky = SubResource("Sky_qevgu")
+sky_custom_fov = 45.6
+sky_rotation = Vector3(0.29670596, 0, 0)
+ambient_light_color = Color(0.5833908, 0.71908087, 0.99715585, 1)
+ambient_light_sky_contribution = 0.35
+ambient_light_energy = 0.2
+
+[node name="StartScreen" type="Control" unique_id=80086562]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_mqr7l")
+
+[node name="Sketchfab_Scene" parent="." unique_id=1227487635 instance=ExtResource("2_mqr7l")]
+transform = Transform3D(0.23986669, 0, 0.9708058, 0, 1, 0, -0.9708058, 0, 0.23986669, 0, -6.477, -36.898)
+
+[node name="VBoxContainer" type="VBoxContainer" parent="." unique_id=595453551]
+layout_mode = 0
+offset_right = 1920.0
+offset_bottom = 1080.0
+alignment = 1
+
+[node name="Label" type="Label" parent="VBoxContainer" unique_id=303957306]
+layout_mode = 2
+text = "Posers"
+label_settings = ExtResource("3_t2adt")
+horizontal_alignment = 1
+
+[node name="Button_Easy" type="Button" parent="VBoxContainer" unique_id=1827977817]
+layout_mode = 2
+text = "Play Easy Mode"
+icon = SubResource("ViewportTexture_gr4v2")
+
+[node name="HBoxContainer" type="HBoxContainer" parent="VBoxContainer" unique_id=1101767011]
+layout_mode = 2
+alignment = 1
+
+[node name="TextureRect" type="TextureRect" parent="VBoxContainer/HBoxContainer" unique_id=712343734]
+material = SubResource("ShaderMaterial_ykci1")
+layout_mode = 2
+texture = ExtResource("4_xupoq")
+
+[node name="TextureRect2" type="TextureRect" parent="VBoxContainer/HBoxContainer" unique_id=1208965577]
+material = SubResource("ShaderMaterial_343mv")
+layout_mode = 2
+texture = ExtResource("5_ykci1")
+
+[node name="TextureRect3" type="TextureRect" parent="VBoxContainer/HBoxContainer" unique_id=904684683]
+material = SubResource("ShaderMaterial_kwitn")
+layout_mode = 2
+texture = ExtResource("6_343mv")
+
+[node name="Button_Meduim" type="Button" parent="VBoxContainer" unique_id=162865784]
+layout_mode = 2
+text = "Play Meduim Mode"
+icon = SubResource("ViewportTexture_gr4v2")
+
+[node name="HBoxContainer2" type="HBoxContainer" parent="VBoxContainer" unique_id=1476400752]
+layout_mode = 2
+alignment = 1
+
+[node name="TextureRect" type="TextureRect" parent="VBoxContainer/HBoxContainer2" unique_id=1143447936]
+material = SubResource("ShaderMaterial_6e3xe")
+layout_mode = 2
+texture = ExtResource("7_kwitn")
+
+[node name="TextureRect2" type="TextureRect" parent="VBoxContainer/HBoxContainer2" unique_id=583717079]
+material = SubResource("ShaderMaterial_cx07w")
+layout_mode = 2
+texture = ExtResource("8_cx07w")
+
+[node name="TextureRect3" type="TextureRect" parent="VBoxContainer/HBoxContainer2" unique_id=1763910628]
+material = SubResource("ShaderMaterial_34ebw")
+layout_mode = 2
+texture = ExtResource("6_343mv")
+
+[node name="Button_Hard" type="Button" parent="VBoxContainer" unique_id=650379799]
+layout_mode = 2
+text = "Play Hard Mode"
+icon = SubResource("ViewportTexture_gr4v2")
+
+[node name="HBoxContainer3" type="HBoxContainer" parent="VBoxContainer" unique_id=1533640932]
+layout_mode = 2
+alignment = 1
+
+[node name="TextureRect" type="TextureRect" parent="VBoxContainer/HBoxContainer3" unique_id=59224798]
+material = SubResource("ShaderMaterial_4dcrr")
+layout_mode = 2
+texture = ExtResource("9_34ebw")
+
+[node name="TextureRect2" type="TextureRect" parent="VBoxContainer/HBoxContainer3" unique_id=2071291734]
+material = SubResource("ShaderMaterial_j3bvg")
+layout_mode = 2
+texture = ExtResource("10_4dcrr")
+
+[node name="TextureRect3" type="TextureRect" parent="VBoxContainer/HBoxContainer3" unique_id=1820313402]
+material = SubResource("ShaderMaterial_eyvri")
+layout_mode = 2
+texture = ExtResource("8_cx07w")
+
+[node name="Camera3D" type="Camera3D" parent="." unique_id=1514421395]
+transform = Transform3D(0.99995476, 0.00052554265, -0.009499671, 0, 0.9984733, 0.055237733, 0.009514194, -0.055235233, 0.9984281, 0, 0, 0)
+
+[node name="DirectionalLight3D" type="DirectionalLight3D" parent="." unique_id=1281454973]
+transform = Transform3D(1, 0, 0, 0, 0.7403152, 0.6722599, 0, -0.6722599, 0.7403152, 0, 3.6995604, 0)
+light_energy = 2.1
+light_indirect_energy = 2.097
+light_volumetric_fog_energy = 2.593
+light_specular = 0.0
+
+[node name="WorldEnvironment" type="WorldEnvironment" parent="." unique_id=1935319289]
+environment = SubResource("Environment_78hlr")

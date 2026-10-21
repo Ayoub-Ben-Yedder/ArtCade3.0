@@ -1,0 +1,33 @@
+[gd_scene format=3 uid="uid://dsrp1kp8wytf5"]
+
+[ext_resource type="PackedScene" uid="uid://dma6niindl1pv" path="res://Assets/monster_circus.glb" id="1_x8s7x"]
+
+[node name="Sketchfab_Scene" unique_id=1227487635 instance=ExtResource("1_x8s7x")]
+
+[node name="polySurface106" parent="Sketchfab_model/981600baae9340849f6dae179f51c16d_fbx/RootNode/group6/pCylinder97/group11" parent_id_path=PackedInt32Array(556964237) index="0" unique_id=1597156462]
+visible = false
+
+[node name="polySurface219" parent="Sketchfab_model/981600baae9340849f6dae179f51c16d_fbx/RootNode/group6/pCylinder97/group11" parent_id_path=PackedInt32Array(556964237) index="1" unique_id=959443387]
+visible = false
+
+[node name="pCylinder89_phong5_0" parent="Sketchfab_model/981600baae9340849f6dae179f51c16d_fbx/RootNode/group10/pCylinder89" parent_id_path=PackedInt32Array(1160094984) index="0" unique_id=1052381063]
+visible = false
+
+[node name="pCylinder187" parent="Sketchfab_model/981600baae9340849f6dae179f51c16d_fbx/RootNode/group10" parent_id_path=PackedInt32Array(1564787858) index="4" unique_id=836096090]
+visible = false
+
+[node name="pCylinder216_phong5_0" parent="Sketchfab_model/981600baae9340849f6dae179f51c16d_fbx/RootNode/group10/pCylinder216" parent_id_path=PackedInt32Array(1286385174) index="0" unique_id=749576060]
+visible = false
+
+[node name="pCube337_lambert38_0" parent="Sketchfab_model/981600baae9340849f6dae179f51c16d_fbx/RootNode/pCube337" parent_id_path=PackedInt32Array(1482949024) index="0" unique_id=1548855633]
+visible = false
+
+[node name="pCylinder148_wood2_0" parent="Sketchfab_model/981600baae9340849f6dae179f51c16d_fbx/RootNode/group56/pCylinder148" parent_id_path=PackedInt32Array(1072383527) index="0" unique_id=1520717646]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.0086603165, -9.536743e-07, 0.013034821)
+
+[node name="group73" parent="Sketchfab_model/981600baae9340849f6dae179f51c16d_fbx/RootNode" parent_id_path=PackedInt32Array(126104685) index="92" unique_id=1747599981]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.3980556, -2.6027734e-18)
+visible = false
+
+[node name="polySurface126_fabric1_0" parent="Sketchfab_model/981600baae9340849f6dae179f51c16d_fbx/RootNode/group73/polySurface126" parent_id_path=PackedInt32Array(1958254919) index="0" unique_id=842519988]
+visible = false

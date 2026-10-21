@@ -1,16 +1,22 @@
 [gd_scene format=3 uid="uid://b0edelq78t3rx"]
 
-[ext_resource type="Script" uid="uid://bgsla80g7hwsp" path="res://player.gd" id="1_0xm2m"]
+[ext_resource type="Script" uid="uid://bgsla80g7hwsp" path="res://Scripts/player.gd" id="1_0xm2m"]
+[ext_resource type="Script" uid="uid://hk3bh6gxtvrt" path="res://Scripts/camera_3d.gd" id="1_272bh"]
 [ext_resource type="PackedScene" uid="uid://d381i2k7yhoov" path="res://character.fbx" id="2_h2yge"]
-[ext_resource type="Script" uid="uid://br046otr8rb7" path="res://pose_receiver.gd" id="3_1bvp3"]
-[ext_resource type="Script" uid="uid://bqc6fkp4yu6xf" path="res://wall.gd" id="3_h2yge"]
+[ext_resource type="Script" uid="uid://br046otr8rb7" path="res://Scripts/pose_receiver.gd" id="3_1bvp3"]
+[ext_resource type="Script" uid="uid://bqc6fkp4yu6xf" path="res://Scripts/wall.gd" id="3_h2yge"]
+[ext_resource type="Texture2D" uid="uid://ftbtp5s6h6sf" path="res://Assets/monster_circus_14.png" id="4_7mycd"]
+[ext_resource type="PackedScene" uid="uid://dsrp1kp8wytf5" path="res://Assets/Cirus.tscn" id="5_lquwl"]
 
 [sub_resource type="CapsuleShape3D" id="CapsuleShape3D_l2hha"]
 
-[node name="Main" type="Node3D" unique_id=1151361475]
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_78hlr"]
+albedo_texture = ExtResource("4_7mycd")
+detail_blend_mode = 1
+detail_uv_layer = 1
+detail_albedo = ExtResource("4_7mycd")
 
-[node name="Camera3D" type="Camera3D" parent="." unique_id=797774730]
-transform = Transform3D(1, 0, 0, 0, 0.9518514, 0.30655974, 0, -0.30655974, 0.9518514, 0.0005825758, 2.8868952, 3.026359)
+[node name="Main" type="Node3D" unique_id=1151361475]
 
 [node name="Player" type="CharacterBody3D" parent="." unique_id=238330554]
 transform = Transform3D(-1, 0, -8.742278e-08, 0, 1, 0, 8.742278e-08, 0, -1, 0, 0.52137935, 0)
@@ -28,18 +34,21 @@ shape = SubResource("CapsuleShape3D_l2hha")
 script = ExtResource("3_1bvp3")
 
 [node name="platform" type="CSGBox3D" parent="." unique_id=1002598183]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.52704954, -3.9128602)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -4.883)
 use_collision = true
-size = Vector3(4.535, 0.205, 9)
+size = Vector3(4.535, 0.205, 9.416016)
+material = SubResource("StandardMaterial3D_78hlr")
 
 [node name="DirectionalLight3D" type="DirectionalLight3D" parent="." unique_id=1405341641]
-transform = Transform3D(0.99711525, 0.024022562, 0.07200051, -0.057730578, 0.85588485, 0.51393384, -0.04927812, -0.51660806, 0.8548029, 0, 1.2614056, 2.452115)
+transform = Transform3D(0.9971153, 0.024022562, 0.07200048, -0.07203444, 0.5984479, 0.79791695, -0.023920525, -0.8008015, 0.59845185, 0, 4.8377266, 5.690819)
+light_energy = 0.736
 shadow_enabled = true
+shadow_bias = 5.45
 
-[node name="Wall" type="AnimatableBody3D" parent="." unique_id=1958228426]
+[node name="Wall" type="AnimatableBody3D" parent="." unique_id=1958228426 node_paths=PackedStringArray("player")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.6608455, -1.5815101)
 script = ExtResource("3_h2yge")
-wall_color = Color(0.32277167, 0.26456547, 0.44662446, 1)
+player = NodePath("../Player")
 
 [node name="SpotLight3D" type="SpotLight3D" parent="." unique_id=1171807363]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.2793562, 10.1045885)
@@ -47,3 +56,12 @@ light_energy = 15.635
 shadow_enabled = true
 spot_range = 4104.88
 spot_angle = 10.25
+
+[node name="Sketchfab_Scene" parent="." unique_id=1227487635 instance=ExtResource("5_lquwl")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.0027508736, 0.01043129, 0.002149582)
+
+[node name="Camera3D" type="Camera3D" parent="." unique_id=797774730 node_paths=PackedStringArray("target")]
+transform = Transform3D(1, 0, 0, 0, 0.9518514, 0.30655974, 0, -0.30655974, 0.9518514, 0.0005825758, 2.8868952, 3.026359)
+script = ExtResource("1_272bh")
+target = NodePath("../Player")
+look_offset = Vector3(0, 2.665, 0)

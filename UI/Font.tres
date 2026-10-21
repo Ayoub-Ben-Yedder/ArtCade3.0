@@ -1,0 +1,10 @@
+[gd_resource type="LabelSettings" format=3 uid="uid://cscphhsj1l56e"]
+
+[ext_resource type="FontFile" uid="uid://b3dnh4onfuvkw" path="res://UI/QuentinCaps.ttf" id="1_jniie"]
+
+[resource]
+font = ExtResource("1_jniie")
+font_size = 109
+font_color = Color(0.05490196, 0.078431375, 0.15686275, 1)
+shadow_color = Color(0, 0, 0, 0.16078432)
+shadow_offset = Vector2(-4.365, 11.04)
